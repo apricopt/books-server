@@ -1,5 +1,4 @@
 import { model, Schema, Model, Document } from 'mongoose';
-
 const classSchema = new Schema({
   _id: {
     type: String,
@@ -14,9 +13,8 @@ const classSchema = new Schema({
   description: {
     type: String,
   },
-  gradee: {
+  grade: {
     type: String,
   },
 });
-
 export const Class = model('Class', classSchema);

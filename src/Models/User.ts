@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
 
   profilePic: { type: String},
-  purchasedBooks: { type: Schema.Types.ObjectId, ref: 'Book' },
+  purchasedBooks: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
 
 });
 
