@@ -17,4 +17,5 @@ const classSchema = new Schema({
     type: String,
   },
 });
+// Random comment
 export const Class = model('Class', classSchema);
