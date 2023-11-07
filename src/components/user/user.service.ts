@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDTO, SignupDto } from './user.dto';
+import { LoginDTO, PurchasedBookDto, SignupDto } from './user.dto';
 import { User } from 'src/Models/User';
 import {
   sendVerificationCode,
@@ -62,5 +62,34 @@ export class UserService {
     }
 
     return { status: 200, message: 'approved' };
+  }
+
+  async purchasedBooks(obj: PurchasedBookDto) {
+    try {
+      const filter = { phone: obj.phone };
+      const update = { purchasedBooks: obj.bookIdies };
+  
+      const result = await User.findOneAndUpdate(filter, update);
+  
+      if (!result) {
+        return { status: 200, message: "User Not found" };
+      }
+  
+      return { status: 200, message: "Purchased Books updated for user!" };
+    } catch (error) {
+      return { status: 500, message: "Internal Server Error" };
+    }
+  }
+  
+  async getByPhone(req) {
+
+    const phone = req.params.phone;
+
+    let userData = await (await User.findOne({phone})).populate("purchasedBooks")
+    if(userData) {
+      return {status: 200, data: userData};
+    }else {
+      return {status:200, data:{}}
+    }
   }
 }

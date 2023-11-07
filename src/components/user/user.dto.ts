@@ -91,3 +91,21 @@ export class VerifyVerificationCodeResponse {
   @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' })
   token: string;
 }
+
+
+export class PurchasedBookDto {
+  @ApiProperty({
+    example: 'User Id',
+  })
+  @IsNotEmpty()
+  phone;
+  
+  @ApiProperty({
+    example: '["93tcvtgwsb","fayelsrq3gw"]',
+    description: 'Array of book Idies',
+  })
+  @IsNotEmpty()
+  @IsArray()
+  bookIdies;
+
+}

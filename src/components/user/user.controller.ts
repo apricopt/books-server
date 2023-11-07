@@ -15,7 +15,7 @@ import { sendVerificationCode, verifyVerificationCode } from '../../helper-funct
 import { ApiTags, ApiOkResponse, ApiCreatedResponse, ApiBody,ApiResponse , ApiInternalServerErrorResponse } from '@nestjs/swagger';
 
 import { AuthGuard } from '../../helper-functions/auth.guard';
-import { SendVerificationCodeDto, SignupDto, LoginDTO, VerifyVerificationCodeDto, SendVerificationCodeResponse, VerifyVerificationCodeResponse } from './user.dto';
+import { SendVerificationCodeDto, SignupDto, LoginDTO, VerifyVerificationCodeDto, SendVerificationCodeResponse, VerifyVerificationCodeResponse, PurchasedBookDto } from './user.dto';
 
 
 @ApiTags('user')
@@ -84,10 +84,27 @@ export class UserController {
         });
     }
 
+    @Post('/purchased-books')
+    async purchasedBooks(@Body() obj: PurchasedBookDto, @Response() res, @Request() req) {
+        const response = await this.service.purchasedBooks(obj);
+
+        return res.status(HttpStatus.OK).json({
+            ...response
+        });
+    }
+
 
     @Get('/')
     async get(@Response() res, @Request() req) {
         const response = await this.service.getAll();
+        return res.status(HttpStatus.OK).json({
+            ...response
+        });
+    }
+
+    @Get('/:phone')
+    async getByPhone(@Response() res, @Request() req) {
+        const response = await this.service.getByPhone(req);
         return res.status(HttpStatus.OK).json({
             ...response
         });
